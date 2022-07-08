@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import express, { Request, Response } from "express";
+import express from "express";
 import swaggerUi from "swagger-ui-express";
 
 import { router } from "./routes";
@@ -13,10 +13,6 @@ app.use(express.json());
 
 /** Swagger Doc */
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerFile));
-
-app.get("/", (req: Request, res: Response) => {
-  res.status(200).send("Hello World");
-});
 
 /** Routes */
 app.use(router);
