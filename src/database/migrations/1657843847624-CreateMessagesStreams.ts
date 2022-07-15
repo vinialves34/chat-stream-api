@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateMessagesStream1657841943043 implements MigrationInterface {
+export class CreateMessagesStreams1657843847624 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "messages_stream",
+        name: "messages_streams",
         columns: [
           {
             name: "id",
@@ -17,7 +17,7 @@ export class CreateMessagesStream1657841943043 implements MigrationInterface {
           },
           {
             name: "stream_id",
-            type: "uuid",
+            type: "int",
           },
           {
             name: "user_id",
@@ -39,11 +39,36 @@ export class CreateMessagesStream1657841943043 implements MigrationInterface {
             default: "now()",
           },
         ],
+        foreignKeys: [
+          {
+            name: "FKStreamMessageStream",
+            referencedTableName: "streams",
+            referencedColumnNames: ["id"],
+            columnNames: ["stream_id"],
+            onDelete: "SET NULL",
+            onUpdate: "SET NULL",
+          },
+          {
+            name: "FKUserMessageStream",
+            referencedTableName: "users",
+            referencedColumnNames: ["id"],
+            columnNames: ["user_id"],
+            onDelete: "SET NULL",
+            onUpdate: "SET NULL",
+          }
+        ],
       })
     );
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("messages_stream");
+    await queryRunner.dropForeignKey("messages_streams", "FKUserMessageStream");
+
+    await queryRunner.dropForeignKey(
+      "messages_streams",
+      "FKStreamMessageStream"
+    );
+
+    await queryRunner.dropTable("messages_streams");
   }
 }
