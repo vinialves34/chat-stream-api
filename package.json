@@ -8,7 +8,9 @@
   "scripts": {
     "dev": "ts-node-dev --inspect --transpile-only --ignore-watch node_modules --respawn src/server.ts",
     "typeorm": "ts-node-dev ./node_modules/typeorm/cli",
-    "migration:run": "ts-node-dev ./node_modules/typeorm/cli migration:run -d src/database/config/app-data-source.ts"
+    "migration:create": "ts-node-dev ./node_modules/typeorm/cli -d src/database/config/app-data-source.ts  migration:create -- -n",
+    "migration:run": "ts-node-dev ./node_modules/typeorm/cli migration:run -d src/database/config/app-data-source.ts",
+    "migration:revert": "ts-node-dev ./node_modules/typeorm/cli migration:revert -d src/database/config/app-data-source.ts"
   },
   "dependencies": {
     "express": "^4.18.1",
