@@ -2,33 +2,19 @@ import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToOne,
   PrimaryColumn,
   UpdateDateColumn,
 } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
-@Entity("users")
-class User {
+@Entity("categories")
+class Category {
   @PrimaryColumn()
   id: string;
 
   @Column()
   name: string;
-
-  @Column({ unique: true })
-  username: string;
-
-  @Column({ unique: true })
-  email: string;
-
-  @Column()
-  password: string;
-
-  @Column()
-  status_id: number;
-
-  @Column()
-  picture?: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -41,4 +27,4 @@ class User {
   }
 }
 
-export { User };
+export { Category };
