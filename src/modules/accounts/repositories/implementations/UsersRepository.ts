@@ -1,4 +1,4 @@
-import { Repository } from "typeorm";
+import { FindOneOptions, Repository } from "typeorm";
 
 import { AppDataSource } from "../../../../database/config/app-data-source";
 import { ICreateUserDTO } from "../../dto/ICreateUserDTO";
@@ -28,6 +28,30 @@ class UsersRepository implements IUsersRepository {
     });
 
     await this.repository.save(user);
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    const findOptions: FindOneOptions<User> = {
+      where: {
+        email,
+      },
+    };
+
+    const user = await this.repository.findOne(findOptions);
+
+    return user;
+  }
+
+  async findById(id: string): Promise<User> {
+    const findOptions: FindOneOptions<User> = {
+      where: {
+        id,
+      },
+    };
+
+    const user = await this.repository.findOne(findOptions);
+
+    return user;
   }
 }
 
