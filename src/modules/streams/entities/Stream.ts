@@ -9,8 +9,8 @@ import {
 } from "typeorm";
 import { v4 as uuidV4 } from "uuid";
 
+import { User } from "../../accounts/entities/User";
 import { Category } from "./Category";
-import { User } from "./User";
 
 @Entity("streams")
 class Stream {
