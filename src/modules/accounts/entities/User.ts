@@ -28,7 +28,7 @@ class User {
   status_id: number;
 
   @Column()
-  picture?: string;
+  photo?: string;
 
   @CreateDateColumn()
   created_at: Date;
